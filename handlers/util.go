@@ -3,8 +3,11 @@ package handlers
 import (
 	"crypto/rand"
 	"encoding/base64"
+	"gothstarter/models"
+	"net/http"
 
 	"github.com/a-h/templ"
+	"github.com/gorilla/sessions"
 	"github.com/labstack/echo/v4"
 )
 
@@ -25,4 +28,23 @@ func GenerateRandomState() (string, error) {
 
 	state := base64.StdEncoding.EncodeToString(b)
 	return state, nil
+}
+
+func GetProfile(store *sessions.CookieStore, req *http.Request) *models.Profile {
+	session, err := store.Get(req, "auth-session")
+	if err != nil {
+		return nil
+	}
+
+	profileData, ok := session.Values["profile"].(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	profile, err := models.ProfileFromMap(profileData)
+	if err != nil {
+		return nil
+	}
+
+	return &profile
 }

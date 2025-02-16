@@ -1,0 +1,24 @@
+package components
+
+templ ProfileCard(fullname string, handle string, image string, bio string) {
+<div class="relative max-w-sm min-w-sm overflow-hidden bg-white border rounded-lg shadow-sm border-neutral-200/60">
+	<img src="https://cdn.devdojo.com/images/august2023/wallpaper.jpeg"
+		class="relative z-20 object-cover w-full h-32" />
+	<div class="absolute top-0 z-50 flex items-center w-full mt-2 translate-y-24 px-7 -translate-x-0">
+		<div class="w-20 h-20 p-1 bg-white rounded-full">
+			<img src={ image } class="w-full h-full rounded-full" />
+		</div>
+		<a href="" class="block mt-6 ml-2">
+			<h5 class="text-lg font-bold leading-none tracking-tight text-neutral-900">{ fullname }</h5>
+			<small class="block mt-1 text-sm font-medium leading-none text-neutral-500">
+				{ handle }
+			</small>
+		</a>
+	</div>
+	<div class="relative pb-6 p-7">
+		<p class="mt-12 text-neutral-500">
+			{ bio }
+		</p>
+	</div>
+</div>
+}

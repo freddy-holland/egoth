@@ -1,9 +1,8 @@
 package handlers
 
 import (
-	"fmt"
+	"gothstarter/models"
 	"gothstarter/views/home"
-	"net/http"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo/v4"
@@ -14,25 +13,19 @@ type ViewHandler struct {
 }
 
 func (h ViewHandler) HandleHome(c echo.Context) error {
-	return Render(c, home.Index())
+
+	var profile *models.Profile = GetProfile(h.SessionStore, c.Request())
+
+	return Render(c, home.Index(profile))
 }
 
 func (h ViewHandler) HandleProfile(c echo.Context) error {
 
-	session, err := h.SessionStore.Get(c.Request(), "auth-session")
-	if err != nil {
-		return c.NoContent(http.StatusInternalServerError)
+	var profile *models.Profile = GetProfile(h.SessionStore, c.Request())
+
+	if profile == nil {
+		return Render(c, home.Status(nil, "404", "Could not find page."))
 	}
 
-	profile, ok := session.Values["profile"].(map[string]interface{})
-	if !ok {
-		return c.String(http.StatusInternalServerError, "Failed to get profile from session")
-	}
-
-	fmt.Println(profile)
-
-	username := profile["nickname"].(string)
-	email := profile["name"].(string)
-
-	return Render(c, home.Profile(username, email))
+	return Render(c, home.Profile(profile))
 }

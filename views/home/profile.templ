@@ -2,12 +2,13 @@ package home
 
 import "gothstarter/views/layouts"
 import "gothstarter/views/components"
+import "gothstarter/models"
 
-templ Profile(user string, email string) {
-	@layouts.Base() {
+templ Profile(profile *models.Profile) {
+	@layouts.Base(profile) {
 		<body class="h-screen w-screen">
 			<div class="flex items-center justify-center h-full w-full max-w-full">
-				@components.Typing(user, email)
+				@components.ProfileCard(profile.Name, profile.Nickname, profile.Picture, "")
 			</div>
 		</body>
 	}

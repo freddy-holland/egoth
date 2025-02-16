@@ -36,12 +36,10 @@ func main() {
 	router.GET("/login", authHandler.HandleLogin)
 	router.GET("/callback", authHandler.HandleCallback)
 	router.GET("/logout", authHandler.HandleLogout)
-	// router.GET("/profile", authHandler.HandleProfile)
 
 	viewHandler := handlers.ViewHandler{SessionStore: store}
 
 	router.GET("/*", echo.WrapHandler(public()))
-	router.GET("/", viewHandler.HandleHome)
 	router.GET("/profile", viewHandler.HandleProfile)
 
 	listenAddr := os.Getenv("LISTEN_ADDR")
