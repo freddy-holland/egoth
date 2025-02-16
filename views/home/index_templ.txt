@@ -1,0 +1,2 @@
+<body class=\"h-screen w-screen\"><div class=\"flex items-center justify-center h-full w-full max-w-full\">
+</div></body>

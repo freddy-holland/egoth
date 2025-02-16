@@ -1,0 +1,14 @@
+package home
+
+import "gothstarter/views/layouts"
+import "gothstarter/views/components"
+
+templ Index() {
+	@layouts.Base() {
+		<body class="h-screen w-screen">
+			<div class="flex items-center justify-center h-full w-full max-w-full">
+				@components.Auth()
+			</div>
+		</body>
+	}
+}

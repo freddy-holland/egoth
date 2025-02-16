@@ -20,16 +20,8 @@ func main() {
 	router := echo.New()
 	router.Use(middleware.Logger())
 
-	//	Echo-idiomatic approach:
-	//	if buildMode == "dev" {
-	//		router.StaticFS("/", http.FS(os.DirFS("public")))
-	//	} else {
-	//		router.StaticFS("/", http.FS(publicFS))
-	//	}
-
 	router.GET("/*", echo.WrapHandler(public()))
-
-	router.GET("/foo", handlers.HandleFoo)
+	router.GET("/", handlers.HandleHome)
 
 	listenAddr := os.Getenv("LISTEN_ADDR")
 	slog.Info("HTTP server started", "listenAddr", listenAddr)
